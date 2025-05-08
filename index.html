@@ -55,18 +55,20 @@
   </div>
 
   <script src="auth.js"></script>
-  <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', function() {
-        navigator.serviceWorker.register('/TIENDA-E-E/sw.js', { scope: '/TIENDA-E-E/' })
-          .then(function(registration) {
-            console.log('ServiceWorker registration successful with scope: ', registration.scope);
-          })
-          .catch(function(err) {
-            console.log('ServiceWorker registration failed: ', err);
-          });
+  html
+<script>
+// Registro del Service Worker
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js')
+      .then(registration => {
+        console.log('ServiceWorker registrado con éxito:', registration.scope);
+      })
+      .catch(error => {
+        console.log('Error al registrar ServiceWorker:', error);
       });
-    }
-    </script>
+  });
+}
+</script>
 </body>
 </html
