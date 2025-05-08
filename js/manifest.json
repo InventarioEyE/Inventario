@@ -1,23 +1,23 @@
 {
-    "name": "Inventario E&E",
+    "name": "TIENDA E&E",
     "short_name": "Inventario",
-    "start_url": "/InventarioEyE/Inventario/",
+    "start_url": "/InventarioEyE/Inventario/index.html",
     "scope": "/InventarioEyE/Inventario/",
     "display": "standalone",
     "background_color": "#ffffff",
     "theme_color": "#3498db",
     "icons": [
-        {
-            "src": "/InventarioEyE/Inventario/img/logo.png",
-            "sizes": "192x192",
-            "type": "image/png",
-            "purpose": "any maskable"
-        },
-        {
-            "src": "/InventarioEyE/Inventario/img/logo.png",
-            "sizes": "512x512",
-            "type": "image/png",
-            "purpose": "any maskable"
-        }
+      {
+        "src": "/InventarioEyE/Inventario/img/logo.png",
+        "sizes": "192x192",
+        "type": "image/png",
+        "purpose": "any maskable"
+      },
+      {
+        "src": "/InventarioEyE/Inventario/img/logo.png",
+        "sizes": "512x512",
+        "type": "image/png",
+        "purpose": "any maskable"
+      }
     ]
-}
+  }
