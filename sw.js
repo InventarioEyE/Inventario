@@ -1,43 +1,46 @@
-const CACHE_NAME = 'tienda-ee-cache-v1';
+const CACHE_NAME = 'inventario-cache-v4';
 const ASSETS = [
-  './',
-  './index.html',
-  './dashboard.html',
-  './historial.html',
-  './styles.css',
-  './auth.js',
-  './inventory.js',
-  './history.js',
-  './export.js',
-  './img/logo.png',
-  './js/manifest.json'
+  '/InventarioEyE/Inventario/',
+  '/InventarioEyE/Inventario/index.html',
+  '/InventarioEyE/Inventario/dashboard.html',
+  '/InventarioEyE/Inventario/historial.html',
+  '/InventarioEyE/Inventario/styles.css',
+  '/InventarioEyE/Inventario/auth.js',
+  '/InventarioEyE/Inventario/inventory.js',
+  '/InventarioEyE/Inventario/history.js',
+  '/InventarioEyE/Inventario/export.js',
+  '/InventarioEyE/Inventario/img/logo.png',
+  '/InventarioEyE/Inventario/js/manifest.json'
 ];
 
-// Instalación del Service Worker
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME)
-      .then(cache => cache.addAll(ASSETS))
+      .then(cache => {
+        console.log('Cache abierto');
+        return cache.addAll(ASSETS);
+      })
       .then(() => self.skipWaiting())
   );
 });
 
-// Estrategia: Cache First
 self.addEventListener('fetch', event => {
   event.respondWith(
     caches.match(event.request)
-      .then(cachedResponse => cachedResponse || fetch(event.request))
+      .then(cachedResponse => {
+        return cachedResponse || fetch(event.request);
+      })
   );
 });
 
-// Limpieza de caches antiguos
 self.addEventListener('activate', event => {
+  const cacheWhitelist = [CACHE_NAME];
   event.waitUntil(
     caches.keys().then(cacheNames => {
       return Promise.all(
-        cacheNames.map(cache => {
-          if (cache !== CACHE_NAME) {
-            return caches.delete(cache);
+        cacheNames.map(cacheName => {
+          if (!cacheWhitelist.includes(cacheName)) {
+            return caches.delete(cacheName);
           }
         })
       );
