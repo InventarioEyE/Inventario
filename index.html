@@ -57,12 +57,16 @@
   <script src="auth.js"></script>
   <script>
     if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('sw.js') // asegúrate de que el archivo esté en la raíz o ajusta la ruta
-          .then(registration => console.log('SW registrado:', registration))
-          .catch(error => console.log('Fallo al registrar SW:', error));
+      window.addEventListener('load', function() {
+        navigator.serviceWorker.register('/TIENDA-E-E/sw.js', { scope: '/TIENDA-E-E/' })
+          .then(function(registration) {
+            console.log('ServiceWorker registration successful with scope: ', registration.scope);
+          })
+          .catch(function(err) {
+            console.log('ServiceWorker registration failed: ', err);
+          });
       });
     }
-  </script>
+    </script>
 </body>
 </html
