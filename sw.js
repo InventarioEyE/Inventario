@@ -1,43 +1,29 @@
-const CACHE_NAME = 'inventario-cache-v1';
-const ASSETS = [
-  '/InventarioEyE/Inventario/',
-  '/InventarioEyE/Inventario/index.html',
-  '/InventarioEyE/Inventario/dashboard.html',
-  '/InventarioEyE/Inventario/historial.html',
-  '/InventarioEyE/Inventario/styles.css',
-  '/InventarioEyE/Inventario/auth.js',
-  '/InventarioEyE/Inventario/inventory.js',
-  '/InventarioEyE/Inventario/history.js',
-  '/InventarioEyE/Inventario/export.js',
-  '/InventarioEyE/Inventario/img/logo.png',
-  '/InventarioEyE/Inventario/js/manifest.json'
+// sw.js - Service Worker básico
+const CACHE_NAME = 'inventario-ee-v1';
+const ASSETS_TO_CACHE = [
+  '/',
+  '/index.html',
+  '/dashboard.html',
+  '/historial.html',
+  '/styles.css',
+  '/auth.js',
+  '/inventory.js',
+  '/history.js',
+  '/export.js',
+  '/img/logo.png'
 ];
 
-self.addEventListener('install', event => {
+self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME)
-      .then(cache => cache.addAll(ASSETS))
-      .then(() => self.skipWaiting())
+      .then((cache) => cache.addAll(ASSETS_TO_CACHE))
   );
+  self.skipWaiting();
 });
 
-self.addEventListener('fetch', event => {
+self.addEventListener('fetch', (event) => {
   event.respondWith(
     caches.match(event.request)
-      .then(cachedResponse => cachedResponse || fetch(event.request))
-  );
-});
-
-self.addEventListener('activate', event => {
-  event.waitUntil(
-    caches.keys().then(cacheNames => {
-      return Promise.all(
-        cacheNames.map(cache => {
-          if (cache !== CACHE_NAME) {
-            return caches.delete(cache);
-          }
-        })
-      );
-    })
+      .then((response) => response || fetch(event.request))
   );
 });
