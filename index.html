@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TIENDA E&E - Login</title>
-    <link rel="manifest" href="/InventarioEyE/Inventario/js/manifest.json">
-    <link rel="shortcut icon" href="img/logo.png">
+    <link rel="manifest" href="js/manifest.json">
+    <link rel="shortcut icon" href="img/logo.png" type="image/png">
     <link rel="stylesheet" href="styles.css">
+    <meta name="theme-color" content="#3498db">
 </head>
 <body>
     <div class="login-container">
@@ -46,21 +47,65 @@
             <p class="register-link">¿Ya tienes cuenta? <a href="#" id="showLogin">Iniciar Sesión</a></p>
         </form>
     </div>
+
+    <div id="installContainer" class="hidden" style="position: fixed; bottom: 20px; right: 20px;">
+        <button id="installBtn" style="padding: 10px 20px; background-color: #2ecc71; color: white; border: none; border-radius: 5px; cursor: pointer;">
+            Instalar App
+        </button>
+    </div>
+
     <script src="auth.js"></script>
     <script>
+        // Registrar Service Worker
         if ('serviceWorker' in navigator) {
-          window.addEventListener('load', () => {
-            navigator.serviceWorker.register('/InventarioEyE/Inventario/sw.js', { 
-              scope: '/InventarioEyE/Inventario/' 
-            })
-            .then(registration => {
-              console.log('ServiceWorker registrado con éxito:', registration.scope);
-            })
-            .catch(error => {
-              console.log('Error al registrar ServiceWorker:', error);
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('js/sw.js')
+                    .then(registration => {
+                        console.log('ServiceWorker registrado con éxito:', registration.scope);
+                    })
+                    .catch(error => {
+                        console.log('Error al registrar ServiceWorker:', error);
+                    });
             });
-          });
         }
-        </script>
+
+        // Manejar el evento beforeinstallprompt
+        let deferredPrompt;
+        const installContainer = document.getElementById('installContainer');
+        const installBtn = document.getElementById('installBtn');
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            
+            // Mostrar el botón de instalación
+            installContainer.classList.remove('hidden');
+            
+            installBtn.addEventListener('click', () => {
+                installContainer.classList.add('hidden');
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        console.log('Usuario aceptó instalar');
+                    } else {
+                        console.log('Usuario rechazó instalar');
+                    }
+                    deferredPrompt = null;
+                });
+            });
+        });
+
+        // Ocultar el botón si la app ya está instalada
+        window.addEventListener('appinstalled', () => {
+            installContainer.classList.add('hidden');
+            deferredPrompt = null;
+            console.log('Aplicación instalada con éxito');
+        });
+
+        // Verificar si la aplicación ya está instalada
+        if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true) {
+            installContainer.classList.add('hidden');
+        }
+    </script>
 </body>
-</html> 
+</html>
