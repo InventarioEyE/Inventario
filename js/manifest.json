@@ -1,7 +1,7 @@
 {
     "name": "Inventario E&E",
     "short_name": "InventarioEE",
-    "start_url": "index.html",
+    "start_url": "https://inventarioeye.github.io/Inventario/index.html",
     "display": "standalone",
     "background_color": "#2c3e50",
     "theme_color": "#3498db",
