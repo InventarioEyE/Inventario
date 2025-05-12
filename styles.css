@@ -639,3 +639,136 @@ button, .action-btn, nav ul li a {
         padding: 12px;
     }
 }
+/* Añadir estas reglas al final de styles.css */
+
+/* Ajustes específicos para móviles en tablas */
+@media (max-width: 480px) {
+    table {
+        font-size: 12px;
+    }
+
+    th, td {
+        padding: 8px 5px;
+        word-break: break-word;
+    }
+
+    /* Cabeceras de tabla más compactas */
+    th {
+        font-size: 11px;
+        padding: 6px 3px;
+    }
+
+    /* Mejorar botones en tablas */
+    .action-buttons-table {
+        flex-direction: column;
+        gap: 3px;
+    }
+
+    .action-btn {
+        padding: 4px 6px;
+        font-size: 10px;
+    }
+}
+
+/* Optimización de formularios en móviles */
+@media (max-width: 480px) {
+    .login-container {
+        margin: 10px;
+        padding: 15px;
+    }
+
+    .form-group input, 
+    .form-group select {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    button {
+        padding: 10px;
+        font-size: 14px;
+    }
+}
+
+/* Mejora en la visualización de fechas */
+@media (max-width: 768px) {
+    td:nth-child(1)::before {
+        content: "Fecha: ";
+        font-weight: bold;
+    }
+    
+    /* Convertir tablas a formato stack */
+    table, thead, tbody, th, td, tr { 
+        display: block; 
+    }
+    
+    thead tr { 
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+    
+    tr {
+        margin-bottom: 15px;
+        border: 2px solid #ddd;
+        border-radius: 5px;
+    }
+    
+    td { 
+        border: none;
+        position: relative;
+        padding-left: 40% !important;
+    }
+    
+    td::before { 
+        position: absolute;
+        left: 6px;
+        width: 35%;
+        content: attr(data-label);
+        font-weight: bold;
+        text-transform: uppercase;
+        font-size: 0.8em;
+        color: #3498db;
+    }
+}
+
+/* Ajustes en el modal para móviles */
+@media (max-width: 480px) {
+    .modal-content {
+        margin: 5px;
+        padding: 10px;
+    }
+
+    #modalTitle {
+        font-size: 1.2em;
+        margin-bottom: 10px;
+    }
+
+    .form-group {
+        margin-bottom: 10px;
+    }
+}
+
+/* Mejorar visualización de filtros */
+@media (max-width: 480px) {
+    .filters .filter-group {
+        width: 100%;
+        margin-bottom: 8px;
+    }
+
+    .filters select, 
+    .filters input {
+        width: 100% !important;
+    }
+}
+
+/* Optimizar botones de acción principal */
+@media (max-width: 480px) {
+    #addProductBtn {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    .search-container button {
+        font-size: 12px;
+    }
+}
